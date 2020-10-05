@@ -1,4 +1,4 @@
 import getRegExp from './getRegExp';
-import getPhoneme from './getPhoneme';
+import getPhonemes from './getPhonemes';
 
-export { getRegExp, getPhoneme };
+export { getRegExp, getPhonemes };

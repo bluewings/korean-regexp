@@ -1,6 +1,6 @@
 import { BASE, INITIALS, MEDIALS, FINALES } from './constant';
 
-function getPhoneme(char: string) {
+function getPhonemes(char: string) {
   let initial = '';
   let medial = '';
   let finale = '';
@@ -22,4 +22,4 @@ function getPhoneme(char: string) {
   return { initial, medial, finale, initialOffset, medialOffset, finaleOffset };
 }
 
-export default getPhoneme;
+export default getPhonemes;

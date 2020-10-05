@@ -1,4 +1,4 @@
-import getPhoneme from './getPhoneme';
+import getPhonemes from './getPhonemes';
 
 const data = [
   ['ㄱ', ['ㄱ', '', '']],
@@ -10,13 +10,13 @@ const data = [
   ['뷁', ['ㅂ', 'ㅞ', 'ㄺ']],
 ];
 
-describe('getPhoneme', () => {
+describe('getPhonemes', () => {
   data.forEach(([char, [initial, medial, finale]]: any) => {
-    test(`getPhoneme '${char}'`, () => {
-      const phoneme = getPhoneme(char);
-      expect(phoneme.initial).toBe(initial);
-      expect(phoneme.medial).toBe(medial);
-      expect(phoneme.finale).toBe(finale);
+    test(`getPhonemes '${char}'`, () => {
+      const phonemes = getPhonemes(char);
+      expect(phonemes.initial).toBe(initial);
+      expect(phonemes.medial).toBe(medial);
+      expect(phonemes.finale).toBe(finale);
     });
   });
 });

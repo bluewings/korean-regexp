@@ -32,6 +32,7 @@
   "scripts": {
     "prestart": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
     "start": "rollup -c --watch",
+    "prebuild": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
     "build": "rollup -c",
     "test": "jest"
   },

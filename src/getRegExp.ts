@@ -1,6 +1,6 @@
 import { BASE, INITIALS, MEDIALS, FINALES, MIXED } from './constant';
 import escapeRegExp from './escapeRegExp';
-import getPhoneme from './getPhoneme';
+import getPhonemes from './getPhonemes';
 
 const getInitialSearchRegExp = (initial: string) => {
   const initialOffset = INITIALS.indexOf(initial);
@@ -16,12 +16,12 @@ const getRegExp = (search: string, { initialSearch = false }: any = {}) => {
   let lastChar = frontChars.slice(-1)[0];
   let lastCharPattern = '';
 
-  const phoneme = getPhoneme(lastChar || '');
+  const phonemes = getPhonemes(lastChar || '');
 
   // 마지막 글자가 한글인 경우만 수행
-  if (phoneme.initialOffset !== -1) {
+  if (phonemes.initialOffset !== -1) {
     frontChars = frontChars.slice(0, -1);
-    const { initial, medial, finale, initialOffset, medialOffset } = phoneme;
+    const { initial, medial, finale, initialOffset, medialOffset } = phonemes;
 
     // 해당 초성으로 시작하는 첫번째 문자 : 가, 나, 다, ... , 하
     const baseCode = initialOffset * MEDIALS.length * FINALES.length + BASE;
