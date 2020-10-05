@@ -1,6 +1,5 @@
 import typescript from 'rollup-plugin-typescript2';
-import resolve from 'rollup-plugin-node-resolve';
-import commonJS from 'rollup-plugin-commonjs';
+import commonjs from '@rollup/plugin-commonjs';
 
 const pkg = require('./package.json');
 
@@ -22,7 +21,7 @@ const cjs = {
     format: 'cjs',
     sourcemap: true,
   },
-  plugins: [...rollupConfig.plugins, resolve(), commonJS()],
+  plugins: [...rollupConfig.plugins, commonjs()],
 };
 
 const esm = {
