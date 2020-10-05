@@ -1,0 +1,39 @@
+{
+  "name": "korean-regexp",
+  "version": "1.0.0",
+  "author": {
+    "name": "Sung Won Cha",
+    "email": "mygenie3@naver.com"
+  },
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bluewings/korean-regexp.git"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "prettier": "^2.1.2",
+    "rollup": "^2.28.2",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.27.3",
+    "typescript": "^4.0.3"
+  },
+  "scripts": {
+    "prestart": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
+    "start": "rollup -c --watch",
+    "build": "rollup -c"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "license": "MIT"
+}
