@@ -1,9 +1,6 @@
 import { BASE, INITIALS, MEDIALS, FINALES } from './constant';
 
 function getPhoneme(char: string) {
-  if (!char.match(/[ㄱ-ㅎ가-힣]/)) {
-    return false;
-  }
   let initial = '';
   let medial = '';
   let finale = '';
@@ -13,7 +10,7 @@ function getPhoneme(char: string) {
   if (char.match(/[ㄱ-ㅎ]/)) {
     initial = char;
     initialOffset = INITIALS.join('').search(char);
-  } else {
+  } else if (char.match(/[가-힣]/)) {
     const tmp = char.charCodeAt(0) - BASE;
     finaleOffset = tmp % FINALES.length;
     medialOffset = ((tmp - finaleOffset) / FINALES.length) % MEDIALS.length;

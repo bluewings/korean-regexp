@@ -19,7 +19,7 @@ const getRegExp = (search: string, { initialSearch = false }: any = {}) => {
   const phoneme = getPhoneme(lastChar || '');
 
   // 마지막 글자가 한글인 경우만 수행
-  if (phoneme) {
+  if (phoneme.initialOffset !== -1) {
     frontChars = frontChars.slice(0, -1);
     const { initial, medial, finale, initialOffset, medialOffset } = phoneme;
 
