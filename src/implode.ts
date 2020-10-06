@@ -58,7 +58,7 @@ function implode(input: string | (string | string[])[]) {
         curr.initials = initials;
         prev.finales = finale ? [finale] : [];
       }
-      if (curr.finales.length > 1) {
+      if (curr.finales.length > 2 || (i === items.length - 1 && curr.finales.length > 1)) {
         const [a, b, ...rest] = curr.finales;
         if (complexDict[`${a}${b}`]) {
           curr.finales = [complexDict[`${a}${b}`], ...rest];
