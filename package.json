@@ -29,11 +29,13 @@
     "typescript": "^4.0.3"
   },
   "scripts": {
-    "prestart": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
+    "prestart": "rm -rf dist/*",
     "start": "rollup -c --watch",
-    "prebuild": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
+    "prebuild": "rm -rf dist/*",
     "build": "rollup -c",
-    "test": "jest"
+    "test": "jest --verbose",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test"
   },
   "files": [
     "dist",

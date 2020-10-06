@@ -11,7 +11,15 @@ const getInitialSearchRegExp = (initial: string) => {
   return initial;
 };
 
-const getRegExp = (search: string, { initialSearch = false }: any = {}) => {
+interface GetRegExpOptions {
+  initialSearch?: boolean;
+  startsWith?: boolean;
+  endsWith?: boolean;
+  ignoreCase?: boolean;
+  global?: boolean;
+}
+
+const getRegExp = (search: string, { initialSearch = false, startsWith = false, endsWith = false, ignoreCase = true, global = false }: GetRegExpOptions = {}) => {
   let frontChars = search.split('');
   let lastChar = frontChars.slice(-1)[0];
   let lastCharPattern = '';
@@ -72,7 +80,7 @@ const getRegExp = (search: string, { initialSearch = false }: any = {}) => {
   }
   const frontCharsPattern = initialSearch ? frontChars.map((char) => (char.search(/[ㄱ-ㅎ]/) !== -1 ? getInitialSearchRegExp(char) : escapeRegExp(char))).join('') : escapeRegExp(frontChars.join(''));
 
-  return RegExp(frontCharsPattern + lastCharPattern);
+  return RegExp((startsWith ? '^' : '') + frontCharsPattern + lastCharPattern + (endsWith ? '$' : ''), (global ? 'g' : '') + (ignoreCase ? 'i' : ''));
 };
 
 export default getRegExp;
