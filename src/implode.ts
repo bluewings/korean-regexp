@@ -2,6 +2,8 @@ import { BASE, INITIALS, MEDIALS, FINALES, MIXED } from './constant';
 
 const complexDict: any = Object.entries(MIXED).reduce((accum, [k, v]: any) => ({ ...accum, [v.join('')]: k }), {});
 
+const isNotUndefined = (e: any) => typeof e !== 'undefined';
+
 function assemble(arr: any) {
   const startIndex = arr.findIndex((e: string) => MEDIALS.indexOf(e) !== -1);
   const endIndex = startIndex !== -1 && MEDIALS.indexOf(arr[startIndex + 1]) !== -1 ? startIndex + 1 : startIndex;
@@ -75,10 +77,14 @@ function implode(input: string | (string | string[])[]) {
     } else if (initials && finales) {
       const pre = initials.slice();
       const initial = pre.pop();
-      const [finale, ...post] = finales;
-      pre.forEach((e: any) => groups.push([e]));
+      let [finale, ...post] = finales;
+      if (FINALES.indexOf(finale) === -1) {
+        post = [finale, ...post];
+        finale = '';
+      }
+      pre.filter(isNotUndefined).forEach((e: any) => groups.push([e]));
       groups.push([initial, medial, finale].filter(Boolean));
-      post.forEach((e: any) => groups.push([e]));
+      post.filter(isNotUndefined).forEach((e: any) => groups.push([e]));
     }
   });
 
