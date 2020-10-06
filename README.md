@@ -11,7 +11,12 @@
 ```js
 import { getRegExp } from 'korean-regexp';
 
-getRegExp('아름다운 한ㄱ');   // /아름다운 한[가-깋]/i
-getRegExp('아름다운 한그');   // /아름다운 한[그-긯]/i
-getRegExp('아름다운 한글');   // /아름다운 한(글|그[라-맇])/i
+// the process of typing '개울가'
+getRegExp('ㄱ');  // /[가-깋]/i
+getRegExp('개');  // /[개-갷]/i
+getRegExp('갱');  // /(갱|개[아-잏])/i
+getRegExp('개우');  // /개[우-윟]/i
+getRegExp('개울');  // /개(울|우[라-맇])/i
+getRegExp('개욹');  // /개(욹|울[가-깋])/i
+getRegExp('개울가');  // /개울[가-갛]/i
 ```
