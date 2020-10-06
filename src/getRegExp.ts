@@ -1,4 +1,4 @@
-import { BASE, INITIALS, MEDIALS, FINALES, MIXED } from './constant';
+import { BASE, INITIALS, MEDIALS, FINALES, MIXED, MEDIAL_RANGE } from './constant';
 import escapeRegExp from './escapeRegExp';
 import getPhonemes from './getPhonemes';
 
@@ -19,7 +19,7 @@ interface GetRegExpOptions {
   global?: boolean;
 }
 
-const getRegExp = (search: string, { initialSearch = false, startsWith = false, endsWith = false, ignoreCase = true, global = false }: GetRegExpOptions = {}) => {
+function getRegExp(search: string, { initialSearch = false, startsWith = false, endsWith = false, ignoreCase = true, global = false }: GetRegExpOptions = {}) {
   let frontChars = search.split('');
   let lastChar = frontChars.slice(-1)[0];
   let lastCharPattern = '';
@@ -55,9 +55,9 @@ const getRegExp = (search: string, { initialSearch = false, startsWith = false, 
       case medial !== '': {
         let from: number, to: number;
         // 중성이 복합 모음인 경우 범위를 확장하여 적용
-        if (MIXED[medial]) {
-          from = baseCode + MEDIALS.join('').search(MIXED[medial][0]) * FINALES.length;
-          to = baseCode + MEDIALS.join('').search(MIXED[medial][1]) * FINALES.length + FINALES.length - 1;
+        if (MEDIAL_RANGE[medial]) {
+          from = baseCode + MEDIALS.join('').search(MEDIAL_RANGE[medial][0]) * FINALES.length;
+          to = baseCode + MEDIALS.join('').search(MEDIAL_RANGE[medial][1]) * FINALES.length + FINALES.length - 1;
         } else {
           from = baseCode + medialOffset * FINALES.length;
           to = from + FINALES.length - 1;
@@ -81,6 +81,6 @@ const getRegExp = (search: string, { initialSearch = false, startsWith = false, 
   const frontCharsPattern = initialSearch ? frontChars.map((char) => (char.search(/[ㄱ-ㅎ]/) !== -1 ? getInitialSearchRegExp(char) : escapeRegExp(char))).join('') : escapeRegExp(frontChars.join(''));
 
   return RegExp((startsWith ? '^' : '') + frontCharsPattern + lastCharPattern + (endsWith ? '$' : ''), (global ? 'g' : '') + (ignoreCase ? 'i' : ''));
-};
+}
 
 export default getRegExp;
