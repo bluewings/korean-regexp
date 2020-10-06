@@ -14,6 +14,7 @@ describe('implode', () => {
       '불닭',
     ],
     [['ㅇ', 'ㅓ', 'ㅂ', 'ㅔ', 'ㄴ', 'ㅈ', 'ㅕ', 'ㅅ', 'ㅡ'], '어벤져스'],
+    [['스', '타', '워', 'ㅈ'], '스타워ㅈ'],
   ].forEach(([hints, text]: any) => {
     test(`implode '${hints}' → '${text}'`, () => {
       expect(implode(hints)).toBe(text);

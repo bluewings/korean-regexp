@@ -71,10 +71,10 @@ function implode(input: string | (string | string[])[]) {
 
   // 각 글자에 해당하는 블록 단위로 나눈 후 조합한다.
   const groups: any[] = [];
-  items.forEach(({ initials, medial, finales, grouped }: any) => {
+  items.forEach(({ initials = [], medial, finales, grouped }: any) => {
     if (grouped) {
       groups.push(grouped);
-    } else if (initials && finales) {
+    } else {
       const pre = initials.slice();
       const initial = pre.pop();
       let [finale, ...post] = finales;
