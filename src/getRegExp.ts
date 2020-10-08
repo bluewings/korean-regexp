@@ -15,11 +15,14 @@ interface GetRegExpOptions {
   initialSearch?: boolean;
   startsWith?: boolean;
   endsWith?: boolean;
+  ignoreSpace?: boolean;
   ignoreCase?: boolean;
   global?: boolean;
 }
 
-function getRegExp(search: string, { initialSearch = false, startsWith = false, endsWith = false, ignoreCase = true, global = false }: GetRegExpOptions = {}) {
+const IGNORE_SPACE = `__${parseInt('ignorespace', 36)}__`;
+
+function getRegExp(search: string, { initialSearch = false, startsWith = false, endsWith = false, ignoreSpace = false, ignoreCase = true, global = false }: GetRegExpOptions = {}) {
   let frontChars = search.split('');
   let lastChar = frontChars.slice(-1)[0];
   let lastCharPattern = '';
@@ -78,9 +81,15 @@ function getRegExp(search: string, { initialSearch = false, startsWith = false, 
 
     lastCharPattern = patterns.length > 1 ? `(${patterns.join('|')})` : patterns[0];
   }
-  const frontCharsPattern = initialSearch ? frontChars.map((char) => (char.search(/[ㄱ-ㅎ]/) !== -1 ? getInitialSearchRegExp(char) : escapeRegExp(char))).join('') : escapeRegExp(frontChars.join(''));
-
-  return RegExp((startsWith ? '^' : '') + frontCharsPattern + lastCharPattern + (endsWith ? '$' : ''), (global ? 'g' : '') + (ignoreCase ? 'i' : ''));
+  const glue = ignoreSpace ? IGNORE_SPACE : '';
+  const frontCharsPattern = initialSearch
+    ? frontChars.map((char) => (char.search(/[ㄱ-ㅎ]/) !== -1 ? getInitialSearchRegExp(char) : escapeRegExp(char))).join(glue)
+    : escapeRegExp(frontChars.join(glue));
+  let pattern = (startsWith ? '^' : '') + frontCharsPattern + glue + lastCharPattern + (endsWith ? '$' : '');
+  if (glue) {
+    pattern = pattern.replace(RegExp(IGNORE_SPACE, 'g'), '\\s*');
+  }
+  return RegExp(pattern, (global ? 'g' : '') + (ignoreCase ? 'i' : ''));
 }
 
 export default getRegExp;
