@@ -113,7 +113,11 @@ function shuffle(arr: any[]) {
 function useFiltered(array: any[], pattern: RegExp | string) {
   return useMemo(() => {
     const filtered = array
-      .map(([title, code]: any) => ({ title, code, index: title.search(pattern) }))
+      .map(([title, code]: any) => ({
+        title,
+        code,
+        index: typeof pattern === 'string' ? title.indexOf(pattern) : title.search(pattern),
+      }))
       .filter(({ index }: any) => index !== -1)
       .sort(compareIndex)
       .slice(0, NUM_OF_DISPLAYS);
