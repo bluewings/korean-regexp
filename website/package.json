@@ -1,6 +1,7 @@
 {
   "name": "website",
   "version": "0.1.0",
+  "homepage": "https://bluewings.github.io/korean-regexp/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -13,6 +14,7 @@
     "@types/react-dom": "^16.9.0",
     "antd": "^4.6.6",
     "bootstrap": "^4.5.2",
+    "gh-pages": "^3.1.0",
     "korean-regexp": "^1.0.5",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
@@ -24,6 +26,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
