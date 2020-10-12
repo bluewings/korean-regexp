@@ -9,7 +9,7 @@
 ### Usage
 
 ```js
-import { getRegExp, getPhonemes, explode } from 'korean-regexp';
+import { getRegExp, getPhonemes, explode, implode } from 'korean-regexp';
 
 // the process of typing '개울가'
 getRegExp('ㄱ');  // /[가-깋]/i
@@ -31,6 +31,10 @@ getPhonemes('한');  /**
 }
 */
 
-explode('한글');                     // [ 'ㅎ', 'ㅏ', 'ㄴ', 'ㄱ', 'ㅡ', 'ㄹ' ]
-explode('한글', { grouped: true });  // [ [ 'ㅎ', 'ㅏ', 'ㄴ' ], [ 'ㄱ', 'ㅡ', 'ㄹ' ] ]
+explode('한글');                     // ['ㅎ', 'ㅏ', 'ㄴ', 'ㄱ', 'ㅡ', 'ㄹ']
+explode('한글', { grouped: true });  // [['ㅎ', 'ㅏ', 'ㄴ'], ['ㄱ', 'ㅡ', 'ㄹ']]
+
+implode('ㅇㅓㅂㅔㄴㅈㅕㅅㅡ ㅇㅐㄴㄷㅡㄱㅔㅇㅣㅁ');  // 어벤져스 앤드게임
+implode(['ㅂ', 'ㅜ', 'ㄹ', 'ㄷ', 'ㅏ', 'ㄹ', 'ㄱ']);  // 불닭
+implode([['ㅂ', 'ㅜ', 'ㄹ'], ['ㄷ', 'ㅏ', 'ㄹ', 'ㄱ']]);  // 불닭
 ```
