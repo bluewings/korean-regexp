@@ -9,7 +9,7 @@
 ### Usage
 
 ```js
-import { getRegExp } from 'korean-regexp';
+import { getRegExp, explode } from 'korean-regexp';
 
 // the process of typing '개울가'
 getRegExp('ㄱ');  // /[가-깋]/i
@@ -19,4 +19,7 @@ getRegExp('개우');  // /개[우-윟]/i
 getRegExp('개울');  // /개(울|우[라-맇])/i
 getRegExp('개욹');  // /개(욹|울[가-깋])/i
 getRegExp('개울가');  // /개울[가-갛]/i
+
+explode('한글');                     // [ 'ㅎ', 'ㅏ', 'ㄴ', 'ㄱ', 'ㅡ', 'ㄹ' ]
+explode('한글', { grouped: true });  // [ [ 'ㅎ', 'ㅏ', 'ㄴ' ], [ 'ㄱ', 'ㅡ', 'ㄹ' ] ]
 ```
