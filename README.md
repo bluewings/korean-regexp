@@ -20,16 +20,25 @@ getRegExp('개울');  // /개(울|우[라-맇])/i
 getRegExp('개욹');  // /개(욹|울[가-깋])/i
 getRegExp('개울가');  // /개울[가-갛]/i
 
-getPhonemes('한');  /**
-{
-  initial: 'ㅎ',
-  medial: 'ㅏ',
-  finale: 'ㄴ',
-  initialOffset: 18,
-  medialOffset: 0,
-  finaleOffset: 4
-}
-*/
+getRegExp('ㅊㅅ퀴즈');   // /ㅊㅅ퀴[즈-즿]/i
+getRegExp('ㅊㅅ퀴즈', {  // /^[차-칳]\s*[사-싷]\s*퀴\s*[즈-즿]$/g
+  initialSearch: true,
+  startsWith: true,
+  endsWith: true,
+  ignoreSpace: true,
+  ignoreCase: false,
+  global: true,
+});
+
+getPhonemes('한');
+// {
+//   initial: 'ㅎ',
+//   medial: 'ㅏ',
+//   finale: 'ㄴ',
+//   initialOffset: 18,
+//   medialOffset: 0,
+//   finaleOffset: 4
+// }
 
 explode('한글');                     // ['ㅎ', 'ㅏ', 'ㄴ', 'ㄱ', 'ㅡ', 'ㄹ']
 explode('한글', { grouped: true });  // [['ㅎ', 'ㅏ', 'ㄴ'], ['ㄱ', 'ㅡ', 'ㄹ']]
