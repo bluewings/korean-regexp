@@ -1,6 +1,6 @@
 {
   "name": "korean-regexp",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": {
     "name": "Sung Won Cha",
     "email": "mygenie3@naver.com"
@@ -41,5 +41,9 @@
     "dist",
     "README.md"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+    "korean",
+    "hangul"
+  ]
 }
