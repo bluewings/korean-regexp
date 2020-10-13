@@ -35,8 +35,9 @@ getRegExp('ㅊㅅ퀴즈', {  // /^[차-칳]\s*[사-싷]\s*퀴\s*[즈-즿]$/g
   global: true,
 });
 
+correctPostpositions('전쟁와(과) 평화');  // 전쟁과 평화
 correctPostpositions('고양이은(는) 건드리지 마라');  // 고양이는 건드리지 마라
-correctPostpositions('"홍길동"이(가) "홍상직"을(를) 만났다');  // "홍길동"이 "홍상직"을 만났다
+correctPostpositions('"테스형"이(가) "나훈아"을(를) 만났다');  // "테스형"이 "나훈아"를 만났다
 
 explode('한글');                     // ['ㅎ', 'ㅏ', 'ㄴ', 'ㄱ', 'ㅡ', 'ㄹ']
 explode('한글', { grouped: true });  // [['ㅎ', 'ㅏ', 'ㄴ'], ['ㄱ', 'ㅡ', 'ㄹ']]
