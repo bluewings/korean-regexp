@@ -2,6 +2,8 @@
 
 [![npm version](https://badge.fury.io/js/korean-regexp.svg)](https://badge.fury.io/js/korean-regexp)
 
+[자연스러운 한글 정규식](https://bluewings.github.io/unobstructed-hangul-regular-expression/)을 사용할 수 있습니다.
+
 <a href="https://bluewings.github.io/unobstructed-hangul-regular-expression/"><img src='https://user-images.githubusercontent.com/1563202/95799432-989d4600-0d2f-11eb-8f84-de91659090b7.gif'></a>
 
 
