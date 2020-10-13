@@ -14,7 +14,7 @@
 ### Usage
 
 ```js
-import { getRegExp, getPhonemes, explode, implode } from 'korean-regexp';
+import { getRegExp, correctPostpositions, explode, implode, getPhonemes } from 'korean-regexp';
 
 // the process of typing '개울가'
 getRegExp('ㄱ');  // /[가-깋]/i
@@ -35,6 +35,16 @@ getRegExp('ㅊㅅ퀴즈', {  // /^[차-칳]\s*[사-싷]\s*퀴\s*[즈-즿]$/g
   global: true,
 });
 
+correctPostpositions('고양이은(는) 건드리지 마라');  // 고양이는 건드리지 마라
+correctPostpositions('"홍길동"이(가) "홍상직"을(를) 만났다');  // "홍길동"이 "홍상직"을 만났다
+
+explode('한글');                     // ['ㅎ', 'ㅏ', 'ㄴ', 'ㄱ', 'ㅡ', 'ㄹ']
+explode('한글', { grouped: true });  // [['ㅎ', 'ㅏ', 'ㄴ'], ['ㄱ', 'ㅡ', 'ㄹ']]
+
+implode('ㅇㅓㅂㅔㄴㅈㅕㅅㅡ ㅇㅐㄴㄷㅡㄱㅔㅇㅣㅁ');  // 어벤져스 앤드게임
+implode(['ㅂ', 'ㅜ', 'ㄹ', 'ㄷ', 'ㅏ', 'ㄹ', 'ㄱ']);  // 불닭
+implode([['ㅂ', 'ㅜ', 'ㄹ'], ['ㄷ', 'ㅏ', 'ㄹ', 'ㄱ']]);  // 불닭
+
 getPhonemes('한');
 // {
 //   initial: 'ㅎ',
@@ -44,11 +54,4 @@ getPhonemes('한');
 //   medialOffset: 0,
 //   finaleOffset: 4
 // }
-
-explode('한글');                     // ['ㅎ', 'ㅏ', 'ㄴ', 'ㄱ', 'ㅡ', 'ㄹ']
-explode('한글', { grouped: true });  // [['ㅎ', 'ㅏ', 'ㄴ'], ['ㄱ', 'ㅡ', 'ㄹ']]
-
-implode('ㅇㅓㅂㅔㄴㅈㅕㅅㅡ ㅇㅐㄴㄷㅡㄱㅔㅇㅣㅁ');  // 어벤져스 앤드게임
-implode(['ㅂ', 'ㅜ', 'ㄹ', 'ㄷ', 'ㅏ', 'ㄹ', 'ㄱ']);  // 불닭
-implode([['ㅂ', 'ㅜ', 'ㄹ'], ['ㄷ', 'ㅏ', 'ㄹ', 'ㄱ']]);  // 불닭
 ```
