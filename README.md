@@ -14,7 +14,15 @@
 ### Usage
 
 ```js
-import { getRegExp, correctPostpositions, explode, implode, getPhonemes } from 'korean-regexp';
+import {
+  getRegExp,
+  engToKor,
+  korToEng,
+  correctPostpositions,
+  explode,
+  implode,
+  getPhonemes,
+} from 'korean-regexp';
 
 // the process of typing '개울가'
 getRegExp('ㄱ');  // /[가-깋]/i
@@ -34,6 +42,12 @@ getRegExp('ㅊㅅ퀴즈', {  // /^[차-칳]\s*[사-싷]\s*퀴\s*[즈-즿]$/g
   ignoreCase: false,
   global: true,
 });
+
+engToKor('gksrmfskf');  // 한글날
+engToKor('Rkrenrl, xhdekfr');  // 깍두기, 통닭
+
+korToEng('ㅗ디ㅣㅐ 재깅!');  // hello world!
+korToEng('ㅠㅁ차 새 솓 려셕ㄷ');  // back to the future
 
 correctPostpositions('전쟁와(과) 평화');  // 전쟁과 평화
 correctPostpositions('고양이은(는) 건드리지 마라');  // 고양이는 건드리지 마라
