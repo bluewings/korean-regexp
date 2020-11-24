@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/korean-regexp.svg)](https://badge.fury.io/js/korean-regexp)
 
-[한글 자동완성을 위한 정규식](https://bluewings.github.io/unobstructed-hangul-regular-expression/)
+[한글 자동완성을 위한 정규식](https://bluewings.github.io/unobstructed-hangul-regular-expression/) / 영타 ↔ 한타 변환 / 자소 분리 / 조사 자동 치환
 
 <a href="https://bluewings.github.io/unobstructed-hangul-regular-expression/"><img src='https://user-images.githubusercontent.com/1563202/95799432-989d4600-0d2f-11eb-8f84-de91659090b7.gif'></a>
 
