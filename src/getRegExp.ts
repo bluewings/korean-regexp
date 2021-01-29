@@ -18,11 +18,13 @@ interface GetRegExpOptions {
   ignoreSpace?: boolean;
   ignoreCase?: boolean;
   global?: boolean;
+  fuzzy?: boolean;
 }
 
+const FUZZY = `__${parseInt('fuzzy', 36)}__`;
 const IGNORE_SPACE = `__${parseInt('ignorespace', 36)}__`;
 
-function getRegExp(search: string, { initialSearch = false, startsWith = false, endsWith = false, ignoreSpace = false, ignoreCase = true, global = false }: GetRegExpOptions = {}) {
+function getRegExp(search: string, { initialSearch = false, startsWith = false, endsWith = false, ignoreSpace = false, ignoreCase = true, global = false, fuzzy = false }: GetRegExpOptions = {}) {
   let frontChars = search.split('');
   let lastChar = frontChars.slice(-1)[0];
   let lastCharPattern = '';
@@ -81,13 +83,15 @@ function getRegExp(search: string, { initialSearch = false, startsWith = false, 
 
     lastCharPattern = patterns.length > 1 ? `(${patterns.join('|')})` : patterns[0];
   }
-  const glue = ignoreSpace ? IGNORE_SPACE : '';
+  const glue = fuzzy ? FUZZY : ignoreSpace ? IGNORE_SPACE : '';
   const frontCharsPattern = initialSearch
     ? frontChars.map((char) => (char.search(/[ㄱ-ㅎ]/) !== -1 ? getInitialSearchRegExp(char) : escapeRegExp(char))).join(glue)
     : escapeRegExp(frontChars.join(glue));
   let pattern = (startsWith ? '^' : '') + frontCharsPattern + glue + lastCharPattern + (endsWith ? '$' : '');
   if (glue) {
-    pattern = pattern.replace(RegExp(IGNORE_SPACE, 'g'), '\\s*');
+    pattern = pattern
+      .replace(RegExp(FUZZY, 'g'), '\.*')
+      .replace(RegExp(IGNORE_SPACE, 'g'), '\\s*');
   }
   return RegExp(pattern, (global ? 'g' : '') + (ignoreCase ? 'i' : ''));
 }

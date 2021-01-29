@@ -81,3 +81,18 @@ describe('options.global', () => {
     expect(getRegExp('ㅎㄱ', { global: true }).toString()).toBe('/ㅎ[가-깋]/gi');
   });
 });
+
+describe('options.fuzzy', () => {
+  test('fuzzy: false (default)', () => {
+    const pattern = getRegExp('ㅋㅍ', { initialSearch: true, fuzzy: false });
+    const words = ['카페', '카카오페이', '카페오레', '카메라', '아카펠라'];
+    const matched = words.filter(word => word.match(pattern));
+    expect(matched).toMatchObject(['카페', '카페오레', '아카펠라']);
+  });
+  test('fuzzy: true', () => {
+    const pattern = getRegExp('ㅋㅍ', { initialSearch: true, fuzzy: true });
+    const words = ['카페', '카카오페이', '카페오레', '카메라', '아카펠라'];
+    const matched = words.filter(word => word.match(pattern));
+    expect(matched).toMatchObject(['카페', '카카오페이', '카페오레', '아카펠라']);
+  });
+});
