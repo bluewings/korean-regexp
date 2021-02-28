@@ -9,6 +9,7 @@ const rollupConfig = {
     typescript({
       tsconfigOverride: {
         compilerOptions: { declaration: true },
+        exclude: ['**/*.test.ts'],
       },
     }),
   ],
