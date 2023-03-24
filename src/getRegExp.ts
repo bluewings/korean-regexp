@@ -2,11 +2,11 @@ import { BASE, INITIALS, MEDIALS, FINALES, MIXED, MEDIAL_RANGE } from './constan
 import escapeRegExp from './escapeRegExp';
 import getPhonemes from './getPhonemes';
 
-const getInitialSearchRegExp = (initial: string) => {
+const getInitialSearchRegExp = (initial: string, allowOnlyInitial = false) => {
   const initialOffset = INITIALS.indexOf(initial);
   if (initialOffset !== -1) {
     const baseCode = initialOffset * MEDIALS.length * FINALES.length + BASE;
-    return `[${String.fromCharCode(baseCode)}-${String.fromCharCode(baseCode + MEDIALS.length * FINALES.length - 1)}]`;
+    return `[${allowOnlyInitial ? initial : ''}${String.fromCharCode(baseCode)}-${String.fromCharCode(baseCode + MEDIALS.length * FINALES.length - 1)}]`;
   }
   return initial;
 };
@@ -73,7 +73,7 @@ function getRegExp(search: string, { initialSearch = false, startsWith = false, 
 
       // case 3: 초성만 입력된 경우
       case initial !== '': {
-        patterns.push(getInitialSearchRegExp(initial));
+        patterns.push(getInitialSearchRegExp(initial, true));
         break;
       }
 
@@ -85,13 +85,11 @@ function getRegExp(search: string, { initialSearch = false, startsWith = false, 
   }
   const glue = fuzzy ? FUZZY : ignoreSpace ? IGNORE_SPACE : '';
   const frontCharsPattern = initialSearch
-    ? frontChars.map((char) => (char.search(/[ㄱ-ㅎ]/) !== -1 ? getInitialSearchRegExp(char) : escapeRegExp(char))).join(glue)
+    ? frontChars.map((char) => (char.search(/[ㄱ-ㅎ]/) !== -1 ? getInitialSearchRegExp(char, true) : escapeRegExp(char))).join(glue)
     : escapeRegExp(frontChars.join(glue));
   let pattern = (startsWith ? '^' : '') + frontCharsPattern + glue + lastCharPattern + (endsWith ? '$' : '');
   if (glue) {
-    pattern = pattern
-      .replace(RegExp(FUZZY, 'g'), '\.*')
-      .replace(RegExp(IGNORE_SPACE, 'g'), '\\s*');
+    pattern = pattern.replace(RegExp(FUZZY, 'g'), '.*').replace(RegExp(IGNORE_SPACE, 'g'), '\\s*');
   }
   return RegExp(pattern, (global ? 'g' : '') + (ignoreCase ? 'i' : ''));
 }
