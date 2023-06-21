@@ -46,7 +46,7 @@ getRegExp('ㅊㅅ퀴즈', {  // /[ㅊ차-칳].*[ㅅ사-싷].*퀴.*[즈-즿]/i
   initialSearch: true,
   fuzzy: true,
 });
-getRegExp('ㅊㅅ퀴즈', {  // /한글(?:날|나[라-맇])/i
+getRegExp('한글날', {  // /한글(?:날|나[라-맇])/i
   nonCaptureGroup: true
 });
 
