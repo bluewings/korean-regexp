@@ -19,12 +19,16 @@ interface GetRegExpOptions {
   ignoreCase?: boolean;
   global?: boolean;
   fuzzy?: boolean;
+  nonCaptureGroup?: boolean;
 }
 
 const FUZZY = `__${parseInt('fuzzy', 36)}__`;
 const IGNORE_SPACE = `__${parseInt('ignorespace', 36)}__`;
 
-function getRegExp(search: string, { initialSearch = false, startsWith = false, endsWith = false, ignoreSpace = false, ignoreCase = true, global = false, fuzzy = false }: GetRegExpOptions = {}) {
+function getRegExp(
+  search: string,
+  { initialSearch = false, startsWith = false, endsWith = false, ignoreSpace = false, ignoreCase = true, global = false, fuzzy = false, nonCaptureGroup = false }: GetRegExpOptions = {},
+) {
   let frontChars = search.split('');
   let lastChar = frontChars.slice(-1)[0];
   let lastCharPattern = '';
@@ -81,7 +85,7 @@ function getRegExp(search: string, { initialSearch = false, startsWith = false, 
         break;
     }
 
-    lastCharPattern = patterns.length > 1 ? `(${patterns.join('|')})` : patterns[0];
+    lastCharPattern = patterns.length > 1 ? (nonCaptureGroup ? `(?:${patterns.join('|')})` : `(${patterns.join('|')})`) : patterns[0];
   }
   const glue = fuzzy ? FUZZY : ignoreSpace ? IGNORE_SPACE : '';
   const frontCharsPattern = initialSearch

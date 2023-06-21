@@ -54,7 +54,7 @@ describe('options.endsWith', () => {
 
 describe('options.ignoreSpace', () => {
   test('ignoreSpace: false (default)', () => {
-    expect(getRegExp('한글날').source).toBe(getRegExp('한글날', { ignoreSpace: false }).source);
+    expect(getRegExp('한글날').source).toBe(getRegExp('한글날').source);
     expect(getRegExp('한글날', { ignoreSpace: false }).source).toBe('한글(날|나[라-맇])');
   });
   test('ignoreSpace: true', () => {
@@ -79,6 +79,16 @@ describe('options.global', () => {
   });
   test('global: true', () => {
     expect(getRegExp('ㅎㄱ', { global: true }).toString()).toBe('/ㅎ[ㄱ가-깋]/gi');
+  });
+});
+
+describe('options.nonCaptureGroup', () => {
+  test('ignoreSpace: false (default)', () => {
+    expect(getRegExp('한글날').source).toBe(getRegExp('한글날').source);
+    expect(getRegExp('한글날').source).toBe('한글(날|나[라-맇])');
+  });
+  test('ignoreSpace: true', () => {
+    expect(getRegExp('한글날', { nonCaptureGroup: true }).source).toBe('한글(?:날|나[라-맇])');
   });
 });
 
