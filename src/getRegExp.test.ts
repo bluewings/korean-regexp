@@ -54,7 +54,7 @@ describe('options.endsWith', () => {
 
 describe('options.ignoreSpace', () => {
   test('ignoreSpace: false (default)', () => {
-    expect(getRegExp('한글날').source).toBe(getRegExp('한글날').source);
+    expect(getRegExp('한글날').source).toBe(getRegExp('한글날', { ignoreSpace: false }).source);
     expect(getRegExp('한글날', { ignoreSpace: false }).source).toBe('한글(날|나[라-맇])');
   });
   test('ignoreSpace: true', () => {
