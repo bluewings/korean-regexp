@@ -82,6 +82,16 @@ describe('options.global', () => {
   });
 });
 
+describe('options.nonCaptureGroup', () => {
+  test('ignoreSpace: false (default)', () => {
+    expect(getRegExp('한글날').source).toBe(getRegExp('한글날').source);
+    expect(getRegExp('한글날').source).toBe('한글(날|나[라-맇])');
+  });
+  test('ignoreSpace: true', () => {
+    expect(getRegExp('한글날', { nonCaptureGroup: true }).source).toBe('한글(?:날|나[라-맇])');
+  });
+});
+
 describe('options.fuzzy', () => {
   test('fuzzy: false (default)', () => {
     const pattern = getRegExp('ㅋㅍ', { initialSearch: true, fuzzy: false });

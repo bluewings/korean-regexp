@@ -46,6 +46,9 @@ getRegExp('ㅊㅅ퀴즈', {  // /[ㅊ차-칳].*[ㅅ사-싷].*퀴.*[즈-즿]/i
   initialSearch: true,
   fuzzy: true,
 });
+getRegExp('한글날', {  // /한글(?:날|나[라-맇])/i
+  nonCaptureGroup: true
+});
 
 engToKor('gksrmfskf');  // 한글날
 engToKor('Rkrenrl, xhdekfr');  // 깍두기, 통닭
