@@ -106,3 +106,22 @@ describe('options.fuzzy', () => {
     expect(matched).toMatchObject(['카페', '카카오페이', '카페오레', '아카펠라']);
   });
 });
+
+describe('options.engToKor', () => {
+  test('engToKor: false (default)', () => {
+    const pattern = getRegExp('gksr', { engToKor: false });
+    const words = ['gksr', '한글', '한국', '대한민국'];
+    const matched = words.filter((word) => word.match(pattern));
+    expect(matched).toMatchObject(['gksr']);
+  });
+  test('engToKor: true', () => {
+    const pattern = getRegExp('gksr', { engToKor: true });
+    const words = ['gksr', '한글', '한국', '대한민국'];
+    const matched = words.filter((word) => word.match(pattern));
+    expect(matched).toMatchObject(['gksr', '한글', '한국']);
+  });
+  test('engToKor: true (valid / invalid korean pattern)', () => {
+    expect(getRegExp('gksr', { engToKor: true }).source).toBe('(gksr)|(한[ㄱ가-깋])');
+    expect(getRegExp('korea', { engToKor: true }).source).toBe('korea');
+  });
+});
