@@ -60,6 +60,9 @@ describe('options.ignoreSpace', () => {
   test('ignoreSpace: true', () => {
     expect(getRegExp('한글날', { ignoreSpace: true }).source).toBe('한\\s*글\\s*(날|나[라-맇])');
   });
+  test('ignoreSpace: true', () => {
+    expect(getRegExp('keyword', { ignoreSpace: true }).source).toBe('k\\s*e\\s*y\\s*w\\s*o\\s*r\\s*d');
+  });
 });
 
 describe('options.ignoreCase', () => {

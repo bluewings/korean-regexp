@@ -79,11 +79,11 @@ const getRegExp = (() => {
           patterns.push(lastChar);
           // 종성이 초성으로 사용 가능한 경우
           if (INITIALS.includes(finale)) {
-          patterns.push(`${String.fromCharCode(baseCode + medialOffset * FINALES.length)}${getInitialSearchRegExp(finale)}`);
+            patterns.push(`${String.fromCharCode(baseCode + medialOffset * FINALES.length)}${getInitialSearchRegExp(finale)}`);
           }
           // 종성이 복합 자음인 경우, 두 개의 자음으로 분리하여 각각 받침과 초성으로 사용
           if (MIXED[finale]) {
-          patterns.push(`${String.fromCharCode(baseCode + medialOffset * FINALES.length + FINALES.join('').search(MIXED[finale][0]) + 1)}${getInitialSearchRegExp(MIXED[finale][1])}`);
+            patterns.push(`${String.fromCharCode(baseCode + medialOffset * FINALES.length + FINALES.join('').search(MIXED[finale][0]) + 1)}${getInitialSearchRegExp(MIXED[finale][1])}`);
           }
           break;
         }
@@ -113,13 +113,20 @@ const getRegExp = (() => {
           break;
       }
 
-    lastCharPattern = patterns.length > 1 ? (nonCaptureGroup ? `(?:${patterns.join('|')})` : `(${patterns.join('|')})`) : patterns[0];
+      lastCharPattern = patterns.length > 1 ? (nonCaptureGroup ? `(?:${patterns.join('|')})` : `(${patterns.join('|')})`) : patterns[0];
     }
     const glue = fuzzy ? FUZZY : ignoreSpace ? IGNORE_SPACE : '';
     const frontCharsPattern = initialSearch
-    ? frontChars.map((char) => (char.search(/[ㄱ-ㅎ]/) !== -1 ? getInitialSearchRegExp(char, true) : escapeRegExp(char))).join(glue)
+      ? frontChars.map((char) => (char.search(/[ㄱ-ㅎ]/) !== -1 ? getInitialSearchRegExp(char, true) : escapeRegExp(char))).join(glue)
       : escapeRegExp(frontChars.join(glue));
-    let pattern = (startsWith ? '^' : '') + frontCharsPattern + glue + lastCharPattern + (endsWith ? '$' : '');
+
+    let pattern = (startsWith ? '^' : '') + frontCharsPattern;
+    if (lastCharPattern.trim() === '') {
+      pattern = pattern + (endsWith ? '$' : '');
+    } else {
+      pattern = pattern + glue + lastCharPattern + (endsWith ? '$' : '');
+    }
+
     if (glue) {
       pattern = pattern.replace(RegExp(FUZZY, 'g'), '.*').replace(RegExp(IGNORE_SPACE, 'g'), '\\s*');
     }
