@@ -56,9 +56,15 @@ describe('options.ignoreSpace', () => {
   test('ignoreSpace: false (default)', () => {
     expect(getRegExp('한글날').source).toBe(getRegExp('한글날', { ignoreSpace: false }).source);
     expect(getRegExp('한글날', { ignoreSpace: false }).source).toBe('한글(날|나[라-맇])');
+    expect(getRegExp('한', { ignoreSpace: false }).source).toBe('(한|하[나-닣])');
+    expect(getRegExp('k', { ignoreSpace: false }).source).toBe('k');
+    expect(getRegExp('keyword', { ignoreSpace: false }).source).toBe('keyword');
   });
   test('ignoreSpace: true', () => {
     expect(getRegExp('한글날', { ignoreSpace: true }).source).toBe('한\\s*글\\s*(날|나[라-맇])');
+    expect(getRegExp('한', { ignoreSpace: true }).source).toBe('(한|하[나-닣])');
+    expect(getRegExp('k', { ignoreSpace: true }).source).toBe('k');
+    expect(getRegExp('keyword', { ignoreSpace: true }).source).toBe('k\\s*e\\s*y\\s*w\\s*o\\s*r\\s*d');
   });
 });
 
